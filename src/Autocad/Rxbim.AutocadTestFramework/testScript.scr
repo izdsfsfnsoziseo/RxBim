@@ -1,0 +1,10 @@
+SECURELOAD 0
+netload "C:\Users\ivachevev\RiderProjects\RxBim\src\Autocad\RxBim.AutocadTestFramework\bin\Debug\net472\RxBim.AutocadTestFramework.1.0.0.dll"
+AutocadTestFrameworkTestCommand
+C:\Users\ivachevev\RiderProjects\RxBim\tests\RxBim.Example.Autocad.IntegrationTests\bin\Debug\net472\RxBim.Example.Autocad.IntegrationTests.dll
+SECURELOAD 1
+QUIT
+
+
+
+
