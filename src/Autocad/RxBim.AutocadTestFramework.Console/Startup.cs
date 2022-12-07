@@ -1,11 +1,14 @@
-﻿namespace CoreWCFService
+﻿namespace RxBim.AutocadTestFramework.Console
 {
+    using Abstractions;
     using CoreWCF;
     using CoreWCF.Channels;
     using CoreWCF.Configuration;
     using CoreWCF.Description;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+    using Services;
 
     /// <summary>
     /// run
@@ -19,6 +22,7 @@
         /// <param name="services"><see cref="IServiceCollection"/></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLogging(builder => builder.SetMinimumLevel(LogLevel.Warning));
             services.AddServiceModelServices();
             services.AddServiceModelMetadata();
             services.AddSingleton<IServiceBehavior, UseRequestHeadersForMetadataAddressBehavior>();

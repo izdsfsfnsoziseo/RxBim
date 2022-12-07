@@ -1,24 +1,21 @@
-﻿namespace RxBim.AutocadTestFramework
+﻿namespace RxBim.AutocadTestFramework.Services
 {
-    using System;
-    using System.Linq;
-    using System.Text;
-    using Autodesk.AutoCAD.ApplicationServices;
-    using Autodesk.AutoCAD.EditorInput;
     using NUnit.Framework.Interfaces;
+    using Service;
 
     /// <inheritdoc />
     public class TestListener : ITestListener
     {
-        private readonly Editor _editor;
+        private readonly IService _service;
+        private int _counter;
 
         /// <summary>
         /// ctr
         /// </summary>
-        /// <param name="editor"><see cref="Editor"/></param>
-        public TestListener(Editor editor)
+        /// <param name="service"><see cref="IService"/></param>
+        public TestListener(IService service)
         {
-            _editor = editor;
+            _service = service;
         }
 
         /// <inheritdoc/>
@@ -30,7 +27,7 @@
         /// <inheritdoc/>
         public void TestFinished(ITestResult result)
         {
-            SendMessage($"Test finished {result.FullName}");
+            SendMessage($"Test finished {result.FullName} {result.Output} {result.Message}");
         }
 
         /// <inheritdoc/>
@@ -47,14 +44,7 @@
 
         private void SendMessage(string message)
         {
-            /*_editor.WriteMessage($"\n{ToUnicode(message)}\n");
-            _editor.WriteMessage("\n ");*/
-        }
-
-        private string ToUnicode(string from)
-        {
-            var bytes = Encoding.Unicode.GetBytes(from);
-            return new string(bytes.Select(b => (char)b).ToArray());
+            _service.SendMessageAsync($"{++_counter}. {message}").GetAwaiter().GetResult();
         }
     }
 }

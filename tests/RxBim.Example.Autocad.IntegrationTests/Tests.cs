@@ -2,13 +2,13 @@
 
 using System;
 using System.Reflection;
-using System.Threading;
-using Autodesk.AutoCAD.EditorInput;
+using AutocadTestFramework;
+using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.Geometry;
 using Di;
-using Di.Testing.Autocad;
 using Di.Testing.Autocad.Di;
+using FluentAssertions;
 using NUnit.Framework;
-using Exception = Autodesk.AutoCAD.BoundaryRepresentation.Exception;
 
 [TestFixture]
 public class Tests
@@ -33,7 +33,7 @@ public class Tests
     [TestDrawing("./drawing.rvt")]
     public void FailureTest()
     {
-        throw new Exception();
+        throw new Exception(nameof(FailureTest));
     }
 
     [Test]
@@ -45,7 +45,20 @@ public class Tests
 
     [Test]
     [TestDrawing("./drawing.rvt")]
-    public void EditorWriteMessage()
+    public void DrawCircleTest()
     {
+        var acCurDb = _container.GetService<Database>();
+        using var acTrans = acCurDb.TransactionManager.StartTransaction();
+        var acBlkTbl = (BlockTable)acTrans.GetObject(acCurDb.BlockTableId, OpenMode.ForRead);
+        var acBlkTblRec = (BlockTableRecord)acTrans.GetObject(acBlkTbl[BlockTableRecord.ModelSpace], OpenMode.ForWrite);
+        var acCircle = new Circle();
+        acCircle.SetDatabaseDefaults();
+        acCircle.Center = new Point3d();
+        const int radius = 5;
+        acCircle.Radius = 5;
+        acBlkTblRec.AppendEntity(acCircle);
+        acTrans.AddNewlyCreatedDBObject(acCircle, true);
+        acTrans.Commit();
+        acCircle.Area.Should().BeApproximately(Math.PI * radius * radius, 1e-3, "wrong calculation of the area of the circle");
     }
 }

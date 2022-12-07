@@ -12,12 +12,15 @@
     {
         private string? _templateFile;
 
-        private bool _useConsole = false;
+        /// <summary>
+        /// blah
+        /// </summary>
+        public bool UseConsole { get; set; } = true;
 
         private int Year { get; set; } = 2019;
 
         // $"C:\\Program Files\\Autodesk\\AutoCAD {year}\\acad.exe"
-        private string AcadConsoleExePath => _useConsole
+        private string AcadConsoleExePath => UseConsole
             ? $"C:\\Program Files\\Autodesk\\AutoCAD {Year}\\accoreconsole.exe"
             : $"C:\\Program Files\\Autodesk\\AutoCAD {Year}\\acad.exe";
 
@@ -57,7 +60,7 @@
                 process.StartInfo.StandardErrorEncoding = encoding;
 
                 process.Start();
-                if (!_useConsole)
+                if (!UseConsole)
                     process.WaitForInputIdle();
                 process.BeginOutputReadLine();
                 process.BeginErrorReadLine();
@@ -134,7 +137,7 @@
             {
                 // run it!
                 // process.Start();
-                if (!_useConsole)
+                if (!UseConsole)
                     process.WaitForInputIdle();
                 using var outputStream = process.StandardOutput;
     
@@ -175,7 +178,7 @@
             if (!string.IsNullOrWhiteSpace(_templateFile))
                 param.Append($" /t \"{_templateFile}\"");
             if (!string.IsNullOrWhiteSpace(script))
-                param.Append($" /{(_useConsole ? "s" : "b")} \"{tempScriptFilePath}\"");
+                param.Append($" /{(UseConsole ? "s" : "b")} \"{tempScriptFilePath}\"");
             /*if (!string.IsNullOrWhiteSpace(fileName))
                 param.AppendFormat(" /i \"{0}\"", fileName);*/
             return param.ToString();

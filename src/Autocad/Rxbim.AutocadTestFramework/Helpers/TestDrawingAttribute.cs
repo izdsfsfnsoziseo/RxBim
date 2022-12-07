@@ -1,4 +1,4 @@
-﻿namespace RxBim.Di.Testing.Autocad
+﻿namespace RxBim.AutocadTestFramework
 {
     using System;
 
