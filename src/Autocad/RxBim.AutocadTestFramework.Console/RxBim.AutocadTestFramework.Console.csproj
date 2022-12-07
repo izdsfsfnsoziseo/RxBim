@@ -8,9 +8,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\tests\RxBim.Example.Autocad.IntegrationTests\RxBim.Example.Autocad.IntegrationTests.csproj" />
-      <ProjectReference Include="..\RxBim.AutocadTestFramework\RxBim.AutocadTestFramework.csproj" />
-      <ProjectReference Include="..\RxBim.ScriptUtils.Autocad\RxBim.ScriptUtils.Autocad.csproj" />
+        <ProjectReference Include="..\..\..\tests\RxBim.Example.Autocad.IntegrationTests\RxBim.Example.Autocad.IntegrationTests.csproj"/>
+        <ProjectReference Include="..\RxBim.AutocadTestFramework\RxBim.AutocadTestFramework.csproj"/>
+        <ProjectReference Include="..\RxBim.ScriptUtils.Autocad\RxBim.ScriptUtils.Autocad.csproj"/>
     </ItemGroup>
 
 </Project>

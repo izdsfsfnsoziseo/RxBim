@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <NotRefenceApi>true</NotRefenceApi>
+        <ApiVersion>1.0.0</ApiVersion>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore" Version="2.1.7" />
+        <PackageReference Include="CoreWCF.Http" Version="1.*" />
+    </ItemGroup>
+</Project>
